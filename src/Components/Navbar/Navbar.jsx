@@ -8,26 +8,30 @@ import iconSearch from "../../assets/search.png";
 import iconUpload from "../../assets/upload.png";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ setSidebar }) => {
   return (
     <nav className="flex-div">
       <div className="nav-left flex-div">
-        <img src={iconMenu} class="menu-icon" />
-        <img src={logo} class="logo" />
+        <img
+          src={iconMenu}
+          className="menu-icon"
+          onClick={() => setSidebar((prev) => (prev === false ? true : false))}
+        />
+        <img src={logo} className="logo" />
       </div>
 
-      <div class="nav-middle flex-div">
-        <div class="search-box flex-div">
+      <div className="nav-middle flex-div">
+        <div className="search-box flex-div">
           <input type="text" placeholder="Search" />
           <img src={iconSearch} alt="" />
         </div>
       </div>
 
-      <div class="nav-right flex-div">
+      <div className="nav-right flex-div">
         <img src={iconUpload} alt="" />
         <img src={iconMore} alt="" />
         <img src={iconNotification} alt="" />
-        <img src={iconProfile} alt="" class="user-icon" />
+        <img src={iconProfile} alt="" className="user-icon" />
       </div>
     </nav>
   );

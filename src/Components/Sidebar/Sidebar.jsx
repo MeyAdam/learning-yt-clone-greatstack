@@ -1,23 +1,23 @@
 import React from "react";
-import iconHome from "../../assets/home.png";
-import iconGame from "../../assets/game_icon.png";
 import iconAutomobiles from "../../assets/automobiles.png";
-import iconSports from "../../assets/sports.png";
-import iconEntertainment from "../../assets/entertainment.png";
-import iconTech from "../../assets/tech.png";
-import iconMusic from "../../assets/music.png";
 import iconBlogs from "../../assets/blogs.png";
-import iconNews from "../../assets/news.png";
-import imgJack from "../../assets/jack.png";
-import imgSimon from "../../assets/simon.png";
-import imgTom from "../../assets/tom.png";
-import imgMegan from "../../assets/megan.png";
 import imgCameron from "../../assets/cameron.png";
+import iconEntertainment from "../../assets/entertainment.png";
+import iconGame from "../../assets/game_icon.png";
+import iconHome from "../../assets/home.png";
+import imgJack from "../../assets/jack.png";
+import imgMegan from "../../assets/megan.png";
+import iconMusic from "../../assets/music.png";
+import iconNews from "../../assets/news.png";
+import imgSimon from "../../assets/simon.png";
+import iconSports from "../../assets/sports.png";
+import iconTech from "../../assets/tech.png";
+import imgTom from "../../assets/tom.png";
 import "./Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ sidebar }) => {
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${sidebar ? "" : "small-sidebar"}`}>
       <div className="shortcut-links">
         <div className="side-link">
           <img src={iconHome} alt="" />
