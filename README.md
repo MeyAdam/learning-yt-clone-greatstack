@@ -13,3 +13,4 @@ https://youtu.be/Zb1zVeXLUf8
 ### what i learnt
 - install react-router-dom
 - install moment
+- how to use browser router, and create route path, including parameter on path
