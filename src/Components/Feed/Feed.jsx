@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import thumbnail1 from "../../assets/thumbnail1.png";
 import thumbnail2 from "../../assets/thumbnail2.png";
 import thumbnail3 from "../../assets/thumbnail3.png";
@@ -12,12 +13,12 @@ import "./Feed.css";
 const Feed = () => {
   return (
     <div className="feed">
-      <div className="card">
+      <Link to={`video/20/4521`} className="card">
         <img src={thumbnail1} alt="" />
         <h2>Video title</h2>
         <h3>Channel name</h3>
         <p>1M Views &bull; 2 days ago</p>
-      </div>
+      </Link>
       <div className="card">
         <img src={thumbnail2} alt="" />
         <h2>Video title</h2>
