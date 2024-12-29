@@ -8,46 +8,81 @@ import share from "../../assets/share.png";
 import { API_KEY, value_converter } from "../../data";
 import "./PlayVideo.css";
 
+/**
+ * The PlayVideo component renders a YouTube video player and displays
+ * information about the video such as title, views, likes, dislikes, and comments.
+ *
+ * @param {string} videoId - The ID of the video to be played.
+ * @returns {React.ReactElement} The PlayVideo component.
+ */
 const PlayVideo = () => {
   const videoId = useParams();
-
   const [apiData, setApiData] = useState(null);
   const [channelData, setChannelData] = useState(null);
   const [commentData, setCommentData] = useState([]);
 
+  /**
+   * Fetches the video data from the YouTube API.
+   * @function fetchVideoData
+   * @returns {Promise<void>}
+   * @description
+   *   This function fetches the video data from the YouTube API.
+   *   The API request is made to the videos endpoint with the following parameters:
+   *     - part: snippet, contentDetails, statistics
+   *     - id: The ID of the video to be fetched
+   *     - key: The API key
+   *   The response is then parsed as JSON and the first item in the items array is stored in the component's state.
+   */
   const fetchVideoData = async () => {
-    // fetching videos data
     const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`;
     await fetch(videoDetails_url)
       .then((res) => res.json())
       .then((data) => setApiData(data.items[0]));
   };
 
+  /**
+   * Fetches the channel data and comments data from the YouTube API.
+   * @function fetchOtherData
+   * @returns {Promise<void>}
+   * @description
+   *   This function fetches the channel data and comments data from the YouTube API.
+   *   The API requests are made to the channels and commentThreads endpoints with the following parameters:
+   *     - part: snippet, contentDetails, statistics
+   *     - id: The ID of the channel to be fetched
+   *     - part: snippet, replies
+   *     - maxResults: 50
+   *     - videoId: The ID of the video to be fetched
+   *     - key: The API key
+   *   The responses are then parsed as JSON and the channel data is stored in the component's state.
+   */
   const fetchOtherData = async () => {
-    // fetching channel data
     const channelData_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
     await fetch(channelData_url)
       .then((res) => res.json())
       .then((data) => setChannelData(data.items[0]));
 
-    // fetching comments data
     const comment_url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${API_KEY}`;
     await fetch(comment_url)
       .then((res) => res.json())
       .then((data) => setCommentData(data.items));
   };
 
+  /**
+   * Fetches the video data when the component mounts and when the video ID changes.
+   */
   useEffect(() => {
     fetchVideoData();
   }, [videoId]);
 
+  /**
+   * Fetches the channel data and comments data when the video data changes.
+   */
   useEffect(() => {
     fetchOtherData();
   }, [apiData]);
 
   return (
     <div className="play-video">
-      {/* <video src={video1} controls autoPlay muted></video> */}
       <iframe
         src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
         frameborder="0"

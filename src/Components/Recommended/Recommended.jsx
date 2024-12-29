@@ -1,11 +1,33 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { API_KEY, value_converter } from "../../data";
 import "./Recommended.css";
-import { Link } from "react-router-dom";
 
+/**
+ * The Recommended component renders a list of recommended videos based on
+ * the category provided.
+ *
+ * @param {string} categoryId - The ID of the category to fetch videos from.
+ * @returns {React.ReactElement} The Recommended component.
+ */
 const Recommended = ({ categoryId }) => {
   const [apiData, setApiData] = useState([]);
 
+  /**
+   * Fetches the video data from the YouTube API.
+   * @function fetchData
+   * @returns {Promise<void>}
+   * @description
+   *   This function fetches the video data from the YouTube API.
+   *   The API request is made to the videos endpoint with the following parameters:
+   *     - part: snippet, contentDetails, statistics
+   *     - chart: mostPopular
+   *     - maxResults: 45
+   *     - regionCode: US
+   *     - videoCategoryId: The selected category ID
+   *     - key: The API key
+   *   The response is then parsed as JSON and the items array is stored in the component's state.
+   */
   const fetchData = async () => {
     const relatedVideo_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=45&regionCode=US&videoCategoryId=${categoryId}&key=${API_KEY}`;
     await fetch(relatedVideo_url)
@@ -13,6 +35,9 @@ const Recommended = ({ categoryId }) => {
       .then((data) => setApiData(data.items));
   };
 
+  /**
+   * Calls the fetchData function when the component mounts.
+   */
   useEffect(() => {
     fetchData();
   }, []);
