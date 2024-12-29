@@ -26,4 +26,5 @@ https://youtu.be/Zb1zVeXLUf8
   - get the video data using API, in youtube data api docs > Videos > list (by video ID). will get video title, view count, published at, like count, channel title, video description, comment count
   - to get channel thumbnails and subscriber counts : youtube data api docs > Channels > list > list (by channel ID)
   - to get list of comments : youtube data api docs > CommentThreads > list > list (by video ID)
+- fetch and display recommended video. basically Videos > list > list (most popular video)
 - how to get ID using useParams
